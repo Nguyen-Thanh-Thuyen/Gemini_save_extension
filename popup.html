@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { width: 300px; padding: 15px; font-family: 'Segoe UI', sans-serif; }
+    
+    /* Style cho các nút bấm */
+    .btn { width: 100%; padding: 10px; margin-bottom: 10px; color: white; border: none; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 14px;}
+    
+    #btn-copy { background: #5f6368; } /* Nút copy text thường (màu xám) */
+    #btn-copy:hover { background: #484b4e; }
+
+    #btn-html { background: #0b57d0; } /* Nút tải HTML đẹp (màu xanh) */
+    #btn-html:hover { background: #0842a0; }
+
+    #status { margin-top: 5px; font-size: 12px; color: green; text-align: center; height: 20px;}
+  </style>
+</head>
+<body>
+  <h3 style="text-align: center; margin-top: 0;">Gemini Saver Pro</h3>
+  
+  <button id="btn-html" class="btn">✨ Tải bản đẹp (HTML)</button>
+  
+  <button id="btn-copy" class="btn">📋 Copy Text thường</button>
+
+  <div id="status"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
