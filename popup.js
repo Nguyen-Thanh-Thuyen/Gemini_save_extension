@@ -135,7 +135,10 @@ function downloadHTML(data) {
     const fullHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + pageTitle + '</title>' + mathScripts + cssStyle + '</head><body>' + bodyContent + scriptInjection + '</body></html>';
 
     // Fix lỗi xẹt chỗ này cho chắc ăn nè
-    const safeFileName = pageTitle.replace(/[^a-zA-Z0-9]/g, '_').replace(/_+/g, '_'); 
+    const safeFileName = pageTitle
+    .replace(/[\\/:*?"<>|]/g, "") 
+    .trim()
+    .replace(/\s+/g, "_"); 
     const blob = new Blob([fullHtml], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

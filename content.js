@@ -69,15 +69,22 @@ function scrapeChatHTML() {
       rawTitle = getFirstUserQuery();
   }
   
-  // Xử lý tên cho sạch đẹp
-  let safeTitle = removeVietnameseTones(rawTitle);
-  // Thay khoảng trắng bằng gạch dưới, bỏ ký tự lạ
-  let filePrefix = safeTitle.replace(/[^a-zA-Z0-9]/g, "_").replace(/_+/g, "_");
+  // 1. Bỏ dấu tiếng Việt
+  // let safeTitle = removeVietnameseTones(rawTitle);
   
-  // Cắt ngắn nếu tên quá dài
+  // 2. Xử lý tên cho sạch đẹp:
+  let filePrefix = rawTitle
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Khử sạch dấu kết hợp nếu có
+    .replace(/[đĐ]/g, 'd')
+    .replace(/[^a-zA-Z0-9\s]/g, '') // Bỏ ký tự lạ, giữ lại khoảng trắng để xử lý sau
+    .trim()
+    .replace(/\s+/g, '_'); // Thay thế cụm khoảng trắng bằng 1 dấu gạch dưới duy nhất
+  
+  // Cắt ngắn nếu tên quá dài (để cỡ chừng 40 ký tự là đẹp)
   if (filePrefix.length > 40) filePrefix = filePrefix.substring(0, 40);
-  // Nếu không lấy được tên thì đặt mặc định
-  if (filePrefix.length < 2) filePrefix = "Anh_Gemini";
+  
+  // Nếu hổng lấy được tên thì đặt mặc định
+  if (!filePrefix || filePrefix.length < 2) filePrefix = "Anh_Gemini";
 
   // --- BƯỚC 2: QUÉT TIN NHẮN ---
   let chatData = [];
