@@ -74,9 +74,7 @@ function scrapeChatHTML() {
   
   // 2. Xử lý tên cho sạch đẹp:
   let filePrefix = rawTitle
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Khử sạch dấu kết hợp nếu có
-    .replace(/[đĐ]/g, 'd')
-    .replace(/[^a-zA-Z0-9\s]/g, '') // Bỏ ký tự lạ, giữ lại khoảng trắng để xử lý sau
+    .replace(/[\\/:*?"<>|]/g, "")
     .trim()
     .replace(/\s+/g, '_'); // Thay thế cụm khoảng trắng bằng 1 dấu gạch dưới duy nhất
   
